@@ -96,7 +96,7 @@ object SortPattern extends Enumeration {
   /**
    * 価格の昇順（安い順）
    */
-  val PriceAcs = Value("-price")
+  val PriceAsc = Value("-price")
 
   /**
    * 日付順（新着）
