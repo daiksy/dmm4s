@@ -1,0 +1,9 @@
+language: scala
+scala:
+   - 2.10.3
+script: sbt test
+notifications:
+  emails:
+    - ksydisk780921@gmail.com
+  on_success: always # default: change
+  on_failure: always

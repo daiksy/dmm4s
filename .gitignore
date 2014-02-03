@@ -3,6 +3,7 @@
 .*
 # except for .gitignore
 !.gitignore
+!.travis.yml
 
 # Ignore Play! working directory #
 db
@@ -20,8 +21,4 @@ test-result
 server.pid
 *.iml
 *.eml
-.idea/
-.idea_modules/
 target/
-.DS_Store
-.history
