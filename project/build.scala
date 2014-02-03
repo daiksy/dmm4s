@@ -27,7 +27,7 @@ object dmm4sBuild extends Build {
         "releases" at "http://oss.sonatype.org/content/repositories/releases",
         "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/"
       )
-    ) ++  formatSettings
+    ) ++  formatSettings ++ coverallsSetting
   ).settings(SbtScalariform.scalariformSettings: _*)
 
   lazy val testDependencies = Seq(
@@ -42,5 +42,9 @@ object dmm4sBuild extends Build {
     .setPreference(IndentWithTabs, true)
     .setPreference(DoubleIndentClassDeclaration, true)
     .setPreference(PreserveDanglingCloseParenthesis, true)
+  )
+
+  lazy val coverallsSetting = Seq(
+    CoverallsPlugin.singleProject: _*
   )
 }

@@ -10,9 +10,13 @@ resolvers ++= Seq(
     "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/",
     "Sonatype snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/",
     Classpaths.typesafeReleases,
-    "scct-github-repository" at "http://mtkopone.github.com/scct/maven-repo"
+    Classpaths.typesafeSnapshots
 )
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-scalariform" % "1.2.1")
 
 addSbtPlugin("com.github.mpeltonen" % "sbt-idea" % "1.5.2")
+
+addSbtPlugin("com.github.scct" % "sbt-scct" % "0.3-SNAPSHOT")
+
+addSbtPlugin("com.github.theon" %% "xsbt-coveralls-plugin" % "0.0.5-SNAPSHOT")
