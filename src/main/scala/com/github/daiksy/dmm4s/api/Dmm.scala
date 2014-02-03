@@ -3,17 +3,20 @@ package com.github.daiksy.dmm4s.api
 import com.github.daiksy.dmm4s.http.{ AbstractResponseHandler, AbstractHttp }
 import org.apache.http.{ HttpException, HttpResponse }
 import java.util.Date
+import dispatch.url
 
 trait Dmm extends AbstractHttp {
 
   protected val apiVersion = "2.00"
-  protected lazy val url = s"http://affiliate-api.dmm.com/?api_id=${_apiId}&affiliate_id=${_affiliateId}" +
+  protected lazy val baseUrl = s"http://affiliate-api.dmm.com/?api_id=${_apiId}&affiliate_id=${_affiliateId}" +
     s"&operation=ItemList&version=${apiVersion}&site=${site}"
 
   protected val _apiId: String
   protected val _affiliateId: String
   protected val site: Site.Type
   protected val service: String
+
+  var hoge: String = ""
 
   /**
    *
@@ -34,10 +37,16 @@ trait Dmm extends AbstractHttp {
     if (hits > 100) throw new IllegalArgumentException("Range error: 'hits' must be 1 to 100")
 
     import com.github.daiksy.dmm4s.util.UrlEncodeUtil._
-    val parameter: Map[String, Seq[String]] = Map("hits" -> Seq(hits.toString), "offset" -> Seq(offset.toString),
-      "sort" -> Seq(sort.toString), "keyword" -> Seq(keyword.encode), "timestamp" -> Seq(timestamp.encode))
+    val parameter: Map[String, String] = Map("hits" -> hits.toString, "offset" -> offset.toString,
+      "sort" -> sort.toString, "keyword" -> keyword.utf8ToEucJp.urlEncode, "timestamp" -> timestamp.urlEncode)
 
-    get[String](url, parameter)(new Handler)
+    val requestUrl = baseUrl + parameter.map { m =>
+      s"${m._1}=${m._2}"
+    }.mkString("&", "&", "")
+
+    val myRequest = url(requestUrl)
+
+    //    get[String](url, parameter)(new Handler)
   }
 
   /**

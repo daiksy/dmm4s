@@ -5,14 +5,20 @@ import java.net.URLDecoder
 
 object UrlEncodeUtil {
 
-  lazy val charaSet = "euc-jp"
+  lazy val urlEncodeChar = "euc-jp"
 
   implicit class EncoderAndDecoder(self: String) {
-    def encode: String = {
-      URLEncoder.encode(self, charaSet)
+    def urlEncode: String = {
+      URLEncoder.encode(self, urlEncodeChar).replace("+", "%20")
     }
-    def decode: String = {
-      URLDecoder.decode(self, charaSet)
+    def urlDecode: String = {
+      URLDecoder.decode(self, urlEncodeChar)
+    }
+    def utf8ToEucJp: String = {
+      new String(self.getBytes("euc-jp"), "euc-jp")
+    }
+    def eucJpToUtf8: String = {
+      new String(self.getBytes("utf-8"), "utf-8")
     }
   }
 

@@ -20,7 +20,7 @@ object dmm4sBuild extends Build {
       libraryDependencies ++= Seq(
         "org.apache.httpcomponents" % "httpclient" % "4.2.5",
         "org.slf4j" % "slf4j-api" % "1.7.2",
-        "net.liftweb" % "lift-json_2.8.0" % "2.3"
+        "net.databinder.dispatch" %% "dispatch-core" % "0.11.0"
       ) ++ testDependencies,
       resolvers ++= Seq(
         "snapshots" at "http://oss.sonatype.org/content/repositories/snapshots",
