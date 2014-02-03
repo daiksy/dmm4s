@@ -4,6 +4,7 @@
 # except for .gitignore
 !.gitignore
 !.travis.yml
+!.coveralls.yml
 
 # Ignore Play! working directory #
 db
