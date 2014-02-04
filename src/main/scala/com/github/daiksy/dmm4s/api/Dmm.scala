@@ -14,8 +14,6 @@ trait Dmm {
   protected val site: Site.Type
   protected val service: String
 
-  var hoge: String = ""
-
   /**
    *
    * 商品一覧を取得します.
@@ -39,9 +37,7 @@ trait Dmm {
     val parameter: Map[String, String] = Map("hits" -> hits.toString, "offset" -> offset.toString,
       "sort" -> sort.toString, "keyword" -> keyword, "timestamp" -> now)
 
-    hoge = Http(baseUrl).params(parameter).charset("euc-jp").asString
-
-    //    get[String](url, parameter)(new Handler)
+    Http(baseUrl).params(parameter).charset("euc-jp").asString
   }
 
 }
