@@ -1,11 +1,9 @@
 package com.github.daiksy.dmm4s.api
 
-import com.github.daiksy.dmm4s.http.{ AbstractResponseHandler, AbstractHttp }
-import org.apache.http.{ HttpException, HttpResponse }
 import java.util.Date
-import dispatch.url
+import scalaj.http.Http
 
-trait Dmm extends AbstractHttp {
+trait Dmm {
 
   protected val apiVersion = "2.00"
   protected lazy val baseUrl = s"http://affiliate-api.dmm.com/?api_id=${_apiId}&affiliate_id=${_affiliateId}" +
@@ -36,35 +34,14 @@ trait Dmm extends AbstractHttp {
   def itemList(hits: Int = 20, offset: Int = 1, sort: SortPattern.Type = SortPattern.Rank, keyword: String = "") {
     if (hits > 100) throw new IllegalArgumentException("Range error: 'hits' must be 1 to 100")
 
-    import com.github.daiksy.dmm4s.util.UrlEncodeUtil._
+    import com.github.daiksy.dmm4s.util.DateUtil._
+    val now = (new Date).toString("yyyy-MM-dd HH:mm:ss")
     val parameter: Map[String, String] = Map("hits" -> hits.toString, "offset" -> offset.toString,
-      "sort" -> sort.toString, "keyword" -> keyword.utf8ToEucJp.urlEncode, "timestamp" -> timestamp.urlEncode)
+      "sort" -> sort.toString, "keyword" -> keyword, "timestamp" -> now)
 
-    val requestUrl = baseUrl + parameter.map { m =>
-      s"${m._1}=${m._2}"
-    }.mkString("&", "&", "")
-
-    val myRequest = url(requestUrl)
+    hoge = Http(baseUrl).params(parameter).charset("euc-jp").asString
 
     //    get[String](url, parameter)(new Handler)
-  }
-
-  /**
-   * URLのタイムスタンプを取得するメソッド.
-   * ユニットテストしやすいように別メソッドとして切り出している。
-   */
-  protected def timestamp: String = {
-    import com.github.daiksy.dmm4s.util.DateUtil._
-    (new Date).toString("yyyy-MM-dd HH:mm:ss")
-  }
-
-  protected class Handler extends AbstractResponseHandler[String] {
-    override def handle(response: HttpResponse) = {
-      response.getStatusCode match {
-        case 200 => "String"
-        case 500 => throw new HttpException("server error.")
-      }
-    }
   }
 
 }
