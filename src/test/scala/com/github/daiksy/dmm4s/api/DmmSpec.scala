@@ -28,7 +28,7 @@ class DmmSpec extends Specification {
         val httpRequest = buildHttpRequest(1, 1, SortPattern.Rank, "ディーエムエム")
       }
       client.httpRequest.getUrl.toString must beEqualTo("http://affiliate-api.dmm.com/?api_id=__api__id&affiliate_id=__affiliated_id___&" +
-        "operation=ItemList&version=2.00&site=DMM.com&timestamp=2014-01-01+00%3A00%3A00&" +
+        "operation=ItemList&version=2.00&site=DMM.co.jp&timestamp=2014-01-01+00%3A00%3A00&" +
         "keyword=%A5%C7%A5%A3%A1%BC%A5%A8%A5%E0%A5%A8%A5%E0&offset=1&hits=1&sort=rank")
     }
   }
