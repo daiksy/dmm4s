@@ -7,7 +7,7 @@ class DmmSpec extends Specification {
   class TesterDotComAll extends DmmDotComAll("__api__id", "__affiliated_id___") {
     override val timestamp = "2014-01-01 00:00:00"
   }
-  class TesterR18 extends DmmDotComAll("__api__id", "__affiliated_id___") {
+  class TesterR18 extends DmmR18All("__api__id", "__affiliated_id___") {
     override val timestamp = "2014-01-01 00:00:00"
   }
 
