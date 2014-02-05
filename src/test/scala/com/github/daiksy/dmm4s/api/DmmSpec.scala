@@ -4,11 +4,25 @@ import org.specs2.mutable.Specification
 
 class DmmSpec extends Specification {
 
+  class TesterDmm extends Dmm {
+    override protected val service: String = ""
+    override protected val site: Site.Type = Site.DmmDotCom
+    override protected val _affiliateId: String = "__affiliated_id___"
+    override protected val _apiId: String = "__api__id"
+  }
+
   class TesterDotComAll extends DmmDotComAll("__api__id", "__affiliated_id___") {
     override val timestamp = "2014-01-01 00:00:00"
   }
   class TesterR18 extends DmmR18All("__api__id", "__affiliated_id___") {
     override val timestamp = "2014-01-01 00:00:00"
+  }
+
+  "Dmm" should {
+    "parameter range error" in {
+      val client = new TesterDmm
+      client.itemListXml(hits = 101) must throwA[IllegalArgumentException]
+    }
   }
 
   "DmmDotComAll" should {

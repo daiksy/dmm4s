@@ -2,6 +2,7 @@ package com.github.daiksy.dmm4s.api
 
 import java.util.Date
 import scalaj.http.Http
+import com.github.daiksy.dmm4s.entities.Item
 
 trait Dmm {
 
@@ -16,7 +17,7 @@ trait Dmm {
 
   /**
    *
-   * 商品一覧を取得します.
+   * 商品一覧をXML形式で取得します.
    * 検索条件を名前付き引数で指定してください.
    *
    * (example)
@@ -29,10 +30,32 @@ trait Dmm {
    * @param sort 検索結果の先頭位置を指定します. 初期値 人気順
    * @param keyword 任意のキーワードを指定します.
    */
-  def itemList(hits: Int = 20, offset: Int = 1, sort: SortPattern.Type = SortPattern.Rank, keyword: String = "") {
+  def itemListXml(hits: Int = 20, offset: Int = 1, sort: SortPattern.Type = SortPattern.Rank, keyword: String = ""): String = {
     if (hits > 100) throw new IllegalArgumentException("Range error: 'hits' must be 1 to 100")
 
     buildHttpRequest(hits, offset, sort, keyword).asString
+  }
+
+  /**
+   *
+   * 商品一覧をItemのcase classで取得します.
+   * 検索条件を名前付き引数で指定してください.
+   *
+   * (example)
+   * {{{
+   *   .itemList(hits = 50, keyword = "ディーエムエム")
+   * }}}
+   *
+   * @param hits 検索結果の件数を指定します. 初期値 20, 最小値 1, 最大値 100
+   * @param offset 検索結果の先頭位置を指定します. 初期値 1
+   * @param sort 検索結果の先頭位置を指定します. 初期値 人気順
+   * @param keyword 任意のキーワードを指定します.
+   */
+  def itemList(hits: Int = 20, offset: Int = 1, sort: SortPattern.Type = SortPattern.Rank, keyword: String = ""): Item = {
+    val xml = itemListXml(hits, offset, sort, keyword)
+
+    // TODO ここは List[Item]とするべき
+    Item(xml)
   }
 
   /** Http Requestの組み立て **/
@@ -43,6 +66,7 @@ trait Dmm {
     Http(baseUrl).params(parameter).charset("euc-jp")
   }
 
+  /** 現在時刻をフォーマットして取得 */
   protected val timestamp = {
     import com.github.daiksy.dmm4s.util.DateUtil._
     (new Date).toString("yyyy-MM-dd HH:mm:ss")
