@@ -32,12 +32,20 @@ trait Dmm {
   def itemList(hits: Int = 20, offset: Int = 1, sort: SortPattern.Type = SortPattern.Rank, keyword: String = "") {
     if (hits > 100) throw new IllegalArgumentException("Range error: 'hits' must be 1 to 100")
 
-    import com.github.daiksy.dmm4s.util.DateUtil._
-    val now = (new Date).toString("yyyy-MM-dd HH:mm:ss")
-    val parameter: Map[String, String] = Map("hits" -> hits.toString, "offset" -> offset.toString,
-      "sort" -> sort.toString, "keyword" -> keyword, "timestamp" -> now)
+    buildHttpRequest(hits, offset, sort, keyword).asString
+  }
 
-    Http(baseUrl).params(parameter).charset("euc-jp").asString
+  /** Http Requestの組み立て **/
+  protected def buildHttpRequest(hits: Int, offset: Int, sort: SortPattern.Type, keyword: String) = {
+    val parameter: Map[String, String] = Map("hits" -> hits.toString, "offset" -> offset.toString,
+      "sort" -> sort.toString, "keyword" -> keyword, "timestamp" -> timestamp)
+
+    Http(baseUrl).params(parameter).charset("euc-jp")
+  }
+
+  protected val timestamp = {
+    import com.github.daiksy.dmm4s.util.DateUtil._
+    (new Date).toString("yyyy-MM-dd HH:mm:ss")
   }
 
 }
