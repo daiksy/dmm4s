@@ -32,11 +32,7 @@ case class ItemInfo(
 
 object Item {
 
-  def apply(xmlString: String): Item = {
-    fromXml(xmlString.toXml)
-  }
-
-  private def fromXml(node: xml.Node): Item = {
+  def apply(node: xml.Node): Item = {
     Item(
       (node \ "result" \ "items" \ "item" \ "service_name").text,
       (node \ "result" \ "items" \ "item" \ "floor_name").text,
@@ -54,16 +50,6 @@ object Item {
       Nil, //TODO
       Nil //TODO
     )
-  }
-
-  implicit class StringToXml(self: String) {
-    def toXml: xml.Node = {
-      val target = self.lines.map { line =>
-        if (line.startsWith("<?xml")) "" else line
-      }.mkString
-
-      XML.loadString(target)
-    }
   }
 }
 

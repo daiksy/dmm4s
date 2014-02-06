@@ -3,6 +3,7 @@ package com.github.daiksy.dmm4s.api
 import java.util.Date
 import scalaj.http.Http
 import com.github.daiksy.dmm4s.entities.Item
+import scala.xml.XML
 
 trait Dmm {
 
@@ -51,11 +52,11 @@ trait Dmm {
    * @param sort 検索結果の先頭位置を指定します. 初期値 人気順
    * @param keyword 任意のキーワードを指定します.
    */
-  def itemList(hits: Int = 20, offset: Int = 1, sort: SortPattern.Type = SortPattern.Rank, keyword: String = ""): Item = {
-    val xml = itemListXml(hits, offset, sort, keyword)
-
-    // TODO ここは List[Item]とするべき
-    Item(xml)
+  def itemList(hits: Int = 20, offset: Int = 1, sort: SortPattern.Type = SortPattern.Rank, keyword: String = ""): List[Item] = {
+    val xmlString = itemListXml(hits, offset, sort, keyword)
+    (stringToXml(xmlString) \ "result" \ "items").map { n =>
+      Item(n)
+    }.toList
   }
 
   /** Http Requestの組み立て **/
@@ -70,6 +71,15 @@ trait Dmm {
   protected val timestamp = {
     import com.github.daiksy.dmm4s.util.DateUtil._
     (new Date).toString("yyyy-MM-dd HH:mm:ss")
+  }
+
+  /** 取得したXML文字列をXml nodeに変換する */
+  protected def stringToXml(xmlString: String): xml.Node = {
+    val target = xmlString.lines.map { line =>
+      if (line.startsWith("<?xml")) "" else line
+    }.mkString
+
+    XML.loadString(target)
   }
 
 }
