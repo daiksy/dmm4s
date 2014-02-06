@@ -290,7 +290,34 @@ class DmmSpec extends Specification {
       val client = new TesterDmm {
         override def itemListXml(hits: Int, offset: Int, sort: SortPattern.Type, keyword: String) = fullXml
       }
-      client.itemList().size === 2
+      val itemList = client.itemList()
+
+      itemList.size === 2
+      itemList.head.serviceName === "動画"
+      itemList.head.floorName === "ビデオ"
+      itemList.head.categoryName === "ビデオ (動画)"
+      itemList.head.title === "新人！kawaii*専属デビュ→ 原石美少女☆ココチイイ親近感 野宮さとみ"
+      itemList.head.url === "http://www.dmm.co.jp/digital/videoa/-/detail/=/cid=kawd00409/"
+      itemList.head.affiliateURL === "http://www.dmm.co.jp/digital/videoa/-/detail/=/cid=kawd00409/affiliate-999"
+      itemList.head.urlForSmartPhone === "http://www.dmm.co.jp/digital/videoa/-/detail/=/cid=kawd00409/"
+      itemList.head.affiliateUrlForSmartPhone === "http://www.dmm.co.jp/digital/videoa/-/detail/=/cid=kawd00409/affiliate-999"
+      itemList.head.imageUrlForList === "http://pics.dmm.co.jp/digital/video/kawd00409/kawd00409pt.jpg"
+      itemList.head.imageUrlSmall === "http://pics.dmm.co.jp/digital/video/kawd00409/kawd00409ps.jpg"
+      itemList.head.imageUrlLarge === "http://pics.dmm.co.jp/digital/video/kawd00409/kawd00409pl.jpg"
+      itemList.head.sampleImageUrls.size === 10
+      itemList.head.sampleImageUrls.head === "http://pics.dmm.co.jp/digital/video/kawd00409/kawd00409-1.jpg"
+      itemList.head.itemInfo.keyword.size === 8
+      itemList.head.itemInfo.keyword.head === "DVDトースター"
+      itemList.head.itemInfo.series.size === 1
+      itemList.head.itemInfo.series.head === "新人！kawaii*専属デビュ→"
+      itemList.head.itemInfo.maker.size === 1
+      itemList.head.itemInfo.maker.head === "kawaii"
+      itemList.head.itemInfo.actress.size === 3
+      itemList.head.itemInfo.actress.head === "野宮さとみ"
+      itemList.head.itemInfo.director.size === 2
+      itemList.head.itemInfo.director.head === "妻夫木翔太"
+      itemList.head.itemInfo.label.size === 1
+      itemList.head.itemInfo.label.head === "kawaii"
     }
   }
 

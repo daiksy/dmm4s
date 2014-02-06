@@ -54,7 +54,7 @@ trait Dmm {
    */
   def itemList(hits: Int = 20, offset: Int = 1, sort: SortPattern.Type = SortPattern.Rank, keyword: String = ""): List[Item] = {
     val xmlString = itemListXml(hits, offset, sort, keyword)
-    (stringToXml(xmlString) \ "result" \ "items").map { n =>
+    (stringToXml(xmlString) \ "result" \ "items" \ "item").map { n =>
       Item(n)
     }.toList
   }

@@ -1,13 +1,9 @@
 package com.github.daiksy.dmm4s.entities
 
-import scala.xml.XML
-
 case class Item(
     serviceName: String,
     floorName: String,
     categoryName: String,
-    contendId: String,
-    productId: String,
     title: String,
     url: String,
     affiliateURL: String,
@@ -17,46 +13,50 @@ case class Item(
     imageUrlSmall: String,
     imageUrlLarge: String,
     sampleImageUrls: List[String],
-    itemInfo: List[ItemInfo]) {
+    itemInfo: ItemInfo) {
 }
 
 case class ItemInfo(
     keyword: List[String],
     series: List[String],
     maker: List[String],
-    actor: List[String],
+    actress: List[String],
     director: List[String],
     author: List[String],
     label: List[String]) {
 }
 
 object Item {
-
   def apply(node: xml.Node): Item = {
     Item(
-      (node \ "result" \ "items" \ "item" \ "service_name").text,
-      (node \ "result" \ "items" \ "item" \ "floor_name").text,
-      (node \ "result" \ "items" \ "item" \ "category_name").text,
-      (node \ "result" \ "items" \ "item" \ "content_id").text,
-      (node \ "result" \ "items" \ "item" \ "product_id").text,
-      (node \ "result" \ "items" \ "item" \ "title").text,
-      (node \ "result" \ "items" \ "item" \ "url").text,
-      (node \ "result" \ "items" \ "item" \ "affiliateURL").text,
-      (node \ "result" \ "items" \ "item" \ "URLsp").text,
-      (node \ "result" \ "items" \ "item" \ "affiliateURLsp").text,
-      (node \ "result" \ "items" \ "item" \ "imageURL" \ "list").text,
-      (node \ "result" \ "items" \ "item" \ "imageURL" \ "small").text,
-      (node \ "result" \ "items" \ "item" \ "imageURL" \ "large").text,
-      Nil, //TODO
-      Nil //TODO
+      (node \ "service_name").text,
+      (node \ "floor_name").text,
+      (node \ "category_name").text,
+      (node \ "title").text,
+      (node \ "URL").text,
+      (node \ "affiliateURL").text,
+      (node \ "URLsp").text,
+      (node \ "affiliateURLsp").text,
+      (node \ "imageURL" \ "list").text,
+      (node \ "imageURL" \ "small").text,
+      (node \ "imageURL" \ "large").text,
+      (node \ "sampleImageURL" \ "sample_s" \ "image").map(_.text).toList,
+      ItemInfo((node \ "iteminfo").head)
     )
   }
 }
 
-// TODO
-//object ItemInfo {
-//  def fromXml(node: xml.Node): ItemInfo {
-//
-//  }
-//}
+object ItemInfo {
+  def apply(node: xml.Node): ItemInfo = {
+    ItemInfo(
+      (node \ "keyword" \ "name").map(_.text).toList,
+      (node \ "series" \ "name").map(_.text).toList,
+      (node \ "maker" \ "name").map(_.text).toList,
+      (node \ "actress" \ "name").map(_.text).toList,
+      (node \ "director" \ "name").map(_.text).toList,
+      (node \ "author" \ "name").map(_.text).toList,
+      (node \ "label" \ "name").map(_.text).toList
+    )
+  }
+}
 
