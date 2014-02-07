@@ -8,4 +8,4 @@ dmm4s
 
 Apache License, Version 2.0
 
-Copyright 2014 Daisuke Kasuya [@daiksy](https://twitter.com/daiksy)ß
+Copyright 2014 Daisuke Kasuya [@daiksy](https://twitter.com/daiksy)
