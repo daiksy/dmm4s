@@ -20,3 +20,5 @@ addSbtPlugin("com.github.mpeltonen" % "sbt-idea" % "1.5.2")
 addSbtPlugin("com.github.scct" % "sbt-scct" % "0.3-SNAPSHOT")
 
 addSbtPlugin("com.github.theon" %% "xsbt-coveralls-plugin" % "0.0.5-SNAPSHOT")
+
+addSbtPlugin("com.typesafe.sbt" % "sbt-pgp" % "0.8.1")

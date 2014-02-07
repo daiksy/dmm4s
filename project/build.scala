@@ -22,12 +22,11 @@ object dmm4sBuild extends Build {
         "org.scalaj" %% "scalaj-http" % "0.3.12"
       ) ++ testDependencies,
       resolvers ++= Seq(
-        "snapshots" at "http://oss.sonatype.org/content/repositories/snapshots",
         "releases" at "http://oss.sonatype.org/content/repositories/releases",
         "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/"
       )
     ) ++  formatSettings ++ coverallsSetting
-  ).settings(SbtScalariform.scalariformSettings: _*)
+  ).settings(SbtScalariform.scalariformSettings: _*).settings(appPublishSettings: _*)
 
   lazy val testDependencies = Seq(
 	  "junit" % "junit" % "4.7" % "test",
@@ -45,5 +44,43 @@ object dmm4sBuild extends Build {
 
   lazy val coverallsSetting = Seq(
     CoverallsPlugin.singleProject: _*
+  )
+
+  lazy val appPublishSettings = Seq(
+    // version is defined in version.sbt in order to support sbt-release
+    organization := appOrganization,
+    publishMavenStyle := true,
+    credentials += Credentials(Path.userHome / ".sbt" / ".credentials"),
+    publishTo <<= version { (v: String) =>
+      val nexus = "https://oss.sonatype.org/"
+      if (v.trim.endsWith("SNAPSHOT")) {
+        Some("snapshots" at nexus + "content/repositories/snapshots")
+      } else {
+        Some("releases"  at nexus + "service/local/staging/deploy/maven2")
+      }
+    },
+    publishArtifact in Test := false,
+    pomIncludeRepository := { _ => false },
+    pomExtra := (
+      <url>https://github.com/daiksy/dmm4s</url>
+        <licenses>
+          <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+            <distribution>repo</distribution>
+          </license>
+        </licenses>
+        <scm>
+          <url>git@github.com:daiksy/dmm4s.git</url>
+          <connection>scm:git:git@github.com:daiksy/dmm4s.git</connection>
+        </scm>
+        <developers>
+          <developer>
+            <id>daiksy</id>
+            <name>daiksy</name>
+            <url>https://github.com/daiksy</url>
+          </developer>
+        </developers>
+      )
   )
 }
