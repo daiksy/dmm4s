@@ -7,7 +7,7 @@ import com.typesafe.sbt.SbtScalariform
 object dmm4sBuild extends Build {
   val appName = "dmm4s"
   val appOrganization = "com.github.daiksy"
-  val appVersion  = "0.1-SNAPSHOT"
+  val appVersion  = "0.1"
   val appScalaVersion = "2.10.3"
 
   val main = Project(
@@ -22,7 +22,6 @@ object dmm4sBuild extends Build {
         "org.scalaj" %% "scalaj-http" % "0.3.12"
       ) ++ testDependencies,
       resolvers ++= Seq(
-        "releases" at "http://oss.sonatype.org/content/repositories/releases",
         "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/"
       )
     ) ++  formatSettings ++ coverallsSetting
@@ -50,7 +49,6 @@ object dmm4sBuild extends Build {
     // version is defined in version.sbt in order to support sbt-release
     organization := appOrganization,
     publishMavenStyle := true,
-    credentials += Credentials(Path.userHome / ".sbt" / ".credentials"),
     publishTo <<= version { (v: String) =>
       val nexus = "https://oss.sonatype.org/"
       if (v.trim.endsWith("SNAPSHOT")) {
