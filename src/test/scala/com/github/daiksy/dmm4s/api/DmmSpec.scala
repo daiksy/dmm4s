@@ -122,6 +122,10 @@ class DmmSpec extends Specification {
       |            <name>kawaii</name>
       |            <id>4469</id>
       |          </maker>
+      |          <actor>
+      |            <name>ほげ</name>
+      |            <id>999</id>
+      |          </actor>
       |          <actress>
       |            <name>野宮さとみ</name>
       |            <id>1017973</id>
@@ -142,6 +146,10 @@ class DmmSpec extends Specification {
       |            <name>つまぶきしょうた</name>
       |            <id>106183_ruby</id>
       |          </director>
+      |          <author>
+      |            <name>ふが</name>
+      |            <id>999</id>
+      |          </author>
       |          <label>
       |            <name>kawaii</name>
       |            <id>6567</id>
@@ -314,6 +322,8 @@ class DmmSpec extends Specification {
       itemList.head.itemInfo.maker.head === "kawaii"
       itemList.head.itemInfo.actress.size === 3
       itemList.head.itemInfo.actress.head === "野宮さとみ"
+      itemList.head.itemInfo.actor.head === "ほげ"
+      itemList.head.itemInfo.author.head === "ふが"
       itemList.head.itemInfo.director.size === 2
       itemList.head.itemInfo.director.head === "妻夫木翔太"
       itemList.head.itemInfo.label.size === 1
