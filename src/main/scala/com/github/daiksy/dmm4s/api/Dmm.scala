@@ -23,7 +23,7 @@ trait Dmm {
    *
    * (example)
    * {{{
-   *   .itemList(hits = 50, keyword = "ディーエムエム")
+   *   .itemListXml(hits = 50, keyword = "ディーエムエム")
    * }}}
    *
    * @param hits 検索結果の件数を指定します. 初期値 20, 最小値 1, 最大値 100
