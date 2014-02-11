@@ -16,12 +16,17 @@ Edit file `project/Build.scala` or `build.sbt`
 
 ```
 libraryDependencies ++= Seq(
-"com.github.daiksy" %% "dmm4s" % "0.1-SNAPSHOT"
+"com.github.daiksy" %% "dmm4s" % "0.1"
 ),
 resolvers ++= Seq(
 "snapshot" at "http://oss.sonatype.org/content/repositories/snapshots"
 )
 ```
+
+# Relase Note
+| version | discription |
+|:----------|:----------|
+| 0.1 | first release |
 
 # License
 
