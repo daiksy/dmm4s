@@ -25,7 +25,7 @@ object dmm4sBuild extends Build {
       resolvers ++= Seq(
         "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/"
       )
-    ) ++  formatSettings ++ coverallsSetting
+    ) ++  formatSettings ++ scctSetting
   ).settings(SbtScalariform.scalariformSettings: _*).settings(appPublishSettings: _*)
 
   lazy val testDependencies = Seq(
@@ -42,8 +42,8 @@ object dmm4sBuild extends Build {
     .setPreference(PreserveDanglingCloseParenthesis, true)
   )
 
-  lazy val coverallsSetting = Seq(
-    CoverallsPlugin.singleProject: _*
+  lazy val scctSetting = Seq(
+    ScctPlugin.instrumentSettings: _*
   )
 
   lazy val appPublishSettings = Seq(
