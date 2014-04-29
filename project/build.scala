@@ -8,7 +8,7 @@ object dmm4sBuild extends Build {
   val appName = "dmm4s"
   val appOrganization = "com.github.daiksy"
   val appVersion  = "0.1"
-  val appScalaVersion = "2.10.3"
+  val appScalaVersion = "2.10.4"
 
   val main = Project(
     appName,
@@ -17,9 +17,10 @@ object dmm4sBuild extends Build {
       organization := appOrganization,
       version := appVersion,
       scalaVersion := appScalaVersion,
+      crossScalaVersions := Seq("2.10.4", "2.11.0"),
       libraryDependencies ++= Seq(
         "org.slf4j" % "slf4j-api" % "1.7.2",
-        "org.scalaj" %% "scalaj-http" % "0.3.12"
+        "org.scalaj" %% "scalaj-http" % "0.3.15"
       ) ++ testDependencies,
       resolvers ++= Seq(
         "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/"
@@ -29,8 +30,8 @@ object dmm4sBuild extends Build {
 
   lazy val testDependencies = Seq(
 	  "junit" % "junit" % "4.7" % "test",
-	  "org.scalaz" %% "scalaz-core" % "7.0.0" % "test",
-	  "org.specs2" %% "specs2" % "1.13" % "test",
+	  "org.scalaz" %% "scalaz-core" % "7.0.6" % "test",
+	  "org.specs2" %% "specs2" % "2.3.11" % "test",
     "org.mockito" % "mockito-all" % "1.9.5" % "test"
   )
 
