@@ -17,7 +17,7 @@ object dmm4sBuild extends Build {
       organization := appOrganization,
       version := appVersion,
       scalaVersion := appScalaVersion,
-      crossScalaVersions := Seq("2.10.4", "2.11.0"),
+      crossScalaVersions := Seq("2.10.4", "2.11.4"),
       libraryDependencies ++= Seq(
         "org.slf4j" % "slf4j-api" % "1.7.2",
         "org.scalaj" %% "scalaj-http" % "0.3.15"
@@ -25,7 +25,7 @@ object dmm4sBuild extends Build {
       resolvers ++= Seq(
         "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/"
       )
-    ) ++  formatSettings ++ scctSetting
+    ) ++  formatSettings
   ).settings(SbtScalariform.scalariformSettings: _*).settings(appPublishSettings: _*)
 
   lazy val testDependencies = Seq(
@@ -40,10 +40,6 @@ object dmm4sBuild extends Build {
     .setPreference(IndentWithTabs, true)
     .setPreference(DoubleIndentClassDeclaration, true)
     .setPreference(PreserveDanglingCloseParenthesis, true)
-  )
-
-  lazy val scctSetting = Seq(
-    ScctPlugin.instrumentSettings: _*
   )
 
   lazy val appPublishSettings = Seq(

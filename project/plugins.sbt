@@ -17,5 +17,3 @@ resolvers ++= Seq(
 addSbtPlugin("com.typesafe.sbt" % "sbt-scalariform" % "1.2.1")
 
 addSbtPlugin("com.github.mpeltonen" % "sbt-idea" % "1.5.2")
-
-addSbtPlugin("com.sqality.scct" % "sbt-scct" % "0.3.1-SNAPSHOT")
